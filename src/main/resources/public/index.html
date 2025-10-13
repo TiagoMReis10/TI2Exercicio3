@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Cadastro de Produtos</title>
+</head>
+<body>
+    <h1>Adicionar Produto</h1>
+    <form action="/add" method="post">
+        Nome: <input type="text" name="nome"><br>
+        Preço: <input type="number" step="0.01" name="preco"><br>
+        Quantidade: <input type="number" name="quantidade"><br>
+        Fabricação: <input type="date" name="fabricacao"><br>
+        Validade: <input type="date" name="validade"><br>
+        <button type="submit">Adicionar</button>
+    </form>
+
+    <h2>Produtos cadastrados</h2>
+    <table border="1">
+        <tr>
+            <th>ID</th>
+            <th>Nome</th>
+            <th>Preço</th>
+            <th>Quantidade</th>
+            <th>Fabricação</th>
+            <th>Validade</th>
+        </tr>
+        <!-- As linhas serão inseridas pelo Spark -->
+        {{#produtos}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{nome}}</td>
+            <td>{{preco}}</td>
+            <td>{{quantidade}}</td>
+            <td>{{fabricacao}}</td>
+            <td>{{validade}}</td>
+        </tr>
+        {{/produtos}}
+    </table>
+</body>
+</html>

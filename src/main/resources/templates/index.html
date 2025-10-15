@@ -34,6 +34,11 @@
             <td>{{quantidade}}</td>
             <td>{{fabricacao}}</td>
             <td>{{validade}}</td>
+			<td>
+			      <form action="/delete/{{id}}" method="post" style="display:inline;">
+			          <button type="submit" onclick="return confirm('Tem certeza que deseja excluir este produto?')">Excluir</button>
+			      </form>
+			  </td>
         </tr>
         {{/produtos}}
     </table>

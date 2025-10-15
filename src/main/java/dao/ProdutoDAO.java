@@ -5,7 +5,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProdutoDAO {
+public class ProdutoDAO{
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(
@@ -29,6 +29,16 @@ public class ProdutoDAO {
             stmt.executeUpdate();
         }
     }
+    
+    //Função de excluir os produtos
+    public void excluir(int id) throws SQLException {
+        String sql = "DELETE FROM produto WHERE id = ?";
+        try (Connection conn = getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
+            stmt.setInt(1, id);
+            stmt.executeUpdate();
+        }
+    }
 
     // Lista todos os produtos
     public List<Produto> listarTodos() throws SQLException {
@@ -49,6 +59,8 @@ public class ProdutoDAO {
                 produtos.add(p);
             }
         }
+        
+        
         return produtos;
     }
 }

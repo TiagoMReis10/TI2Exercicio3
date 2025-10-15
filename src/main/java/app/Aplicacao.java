@@ -18,14 +18,19 @@ public class Aplicacao {
 
         ProdutoDAO dao = new ProdutoDAO();
 
-        // Lista produtos e mostra no HTML
+     // Lista produtos e mostra no HTML
         get("/", (req, res) -> {
             List<Produto> produtos = dao.listarTodos();
+
+            // --- ADICIONE A LINHA DE DEBUG AQUI ---
+            System.out.println(">>> O método listarTodos() retornou " + produtos.size() + " produtos.");
+
             Map<String, Object> model = new HashMap<>();
             model.put("produtos", produtos);
             return new ModelAndView(model, "index.html");
         }, new MustacheTemplateEngine());
-
+        
+        
         // Recebe o formulário e adiciona produto
         post("/add", (req, res) -> {
             String nome = req.queryParams("nome");
@@ -35,6 +40,14 @@ public class Aplicacao {
             LocalDate validade = LocalDate.parse(req.queryParams("validade"));
 
             dao.adicionar(new Produto(nome, preco, quantidade, fabricacao, validade));
+            res.redirect("/");
+            return null;
+        });
+        
+        //Função de excluir o produto
+        post("/delete/:id", (req, res) -> {
+            int id = Integer.parseInt(req.params(":id"));
+            dao.excluir(id);
             res.redirect("/");
             return null;
         });
